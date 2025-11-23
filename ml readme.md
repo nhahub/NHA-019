@@ -162,18 +162,21 @@ irrigation-model-deployment/
 The user-friendly web interface allows you to input environmental parameters:
 
 ![Input Form](images/ui.jpg)
+
 *Input form with all environmental parameters*
 
 ### Prediction Result
 Get instant irrigation recommendations based on your input:
 
 ![Prediction Result](images/ui_result.jpg)
+
 *Prediction result showing irrigation recommendation*
 
 ### Sample Data Feature
 Quick testing with pre-filled sample data:
 
 ![Sample Data](images/ui_filled.jpg)
+
 *Fill with sample data for quick testing*
 
 ## 💻 Usage
