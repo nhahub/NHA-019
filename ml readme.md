@@ -116,14 +116,7 @@ irrigation_needed = 1 if soil_moisture < adjusted_threshold else 0
 
 Based on XGBoost analysis:
 
-```
-soil_moisture       ████████████████████ (Highest)
-temperature         ███████████████
-rainfall            ████████████
-humidity            █████████
-sunlight_intensity  ███████
-soil_pH             ███
-```
+![](images/)
 
 **Insights:**
 - Soil moisture is the dominant factor (as expected)
@@ -161,7 +154,7 @@ irrigation-model-deployment/
 ## Main Interface
 The user-friendly web interface allows you to input environmental parameters:
 
-![Input Form](images/ui.jpg)
+![importance](images/irrigation_importance.png)
 
 *Input form with all environmental parameters*
 
@@ -221,6 +214,138 @@ Results page displaying prediction outcome and the input parameters used.
 ### `requirements.txt`
 List of Python packages required to run the application.
 
+# 🌱 Second Model: Soil Health Index Prediction Model
+
+## 📋 Overview
+A machine learning regression model that predicts soil health status based on environmental conditions, agricultural practices, and soil characteristics. The model outputs a continuous Soil Health Index (0-1 scale) to help farmers assess and improve soil quality for sustainable agriculture.
+
+## 🎯 Key Features
+- **Regression-based prediction** of soil health (0.0 = Poor, 1.0 = Excellent)
+- **R² Score: 0.9987** - Extremely high prediction accuracy
+- **MAE: 0.0020** - Very low prediction error
+- **8 Input Features** including soil properties, climate, and farming practices
+- **Color-coded health categories** for easy interpretation
+- **Multi-crop and multi-region support**
+
+---
+
+## 🔧 Model Architecture
+
+### Algorithm: Random Forest Regressor
+
+**Why Random Forest?**
+- Excellent for regression tasks with non-linear relationships
+- Handles multiple feature types naturally
+- Provides feature importance rankings
+- Resistant to overfitting with proper tuning
+- No need for feature scaling (but we still do it for consistency)
+
+---
+
+## 📊 Input Features
+
+| Feature | Type | Range | Description | Impact |
+|---------|------|-------|-------------|--------|
+| `soil_pH` | Float | 5.5-8.5 | Soil acidity/alkalinity | High |
+| `soil_moisture` | Float | 0-100% | Water content in soil | High |
+| `temperature` | Float | 10-45°C | Ambient air temperature | Medium |
+| `humidity` | Float | 20-90% | Relative air humidity | Medium |
+| `rainfall` | Float | 0-76mm | Recent precipitation | Medium |
+| `pesticide_usage_ml` | Float | 0-50ml | Chemical application | High |
+| `crop_type` | Categorical | 10 types | Current crop planted | Low |
+| `region` | Categorical | 3 regions | Geographic location | Low |
+
+**Output:** Soil Health Index (0.0 - 1.0)
+- **0.0 - 0.4**: 🔴 Poor Soil Health
+- **0.4 - 0.7**: 🟡 Moderate Soil Health
+- **0.7 - 1.0**: 🟢 Healthy Soil
+
+---
+
+## 🧮 Soil Health Index Formula
+
+**Interpretation:**
+- **pH Factor**: Optimal at 6.5 (neutral), penalties for acidity/alkalinity
+- **Pesticide Impact**: Higher usage = lower health score
+- **Moisture Balance**: Best at 50%, penalties for too dry/wet
+
+---
+
+## 📈 Model Performance
+
+### Training Results
+```
+Mean Absolute Error (MAE): 0.0020
+R² Score: 0.9987
+```
 
 
+### Feature Importance Ranking
+![importance](images/soil_importance.png)
+**Key Insights:**
+- **Soil pH** is the dominant factor (directly affects nutrient availability)
+- **Pesticide usage** strongly impacts soil biology
+- **Moisture** is critical for microbial activity
+- **Climate factors** have moderate influence
+- **Crop type and region** provide context but less direct impact
+
+---
+
+## 🧪 Test Scenarios
+
+### Scenario 1: Optimal Conditions (Should be Healthy)
+```python
+{
+    "soil_pH": 6.5,              # Perfect neutral
+    "soil_moisture": 50,         # Ideal
+    "temperature": 22,           # Mild
+    "humidity": 80,              # Great
+    "rainfall": 6,               # Good
+    "pesticide_usage_ml": 0,     # None
+    "crop_type": "Rice",
+    "region": "NileDelta"
+}
+# Expected: 0.70+ (🟢 Healthy)
+```
+
+### Scenario 2: Poor Conditions (Should be Poor)
+```python
+{
+    "soil_pH": 8.0,              # Too alkaline
+    "soil_moisture": 30,         # Dry
+    "temperature": 35,           # Hot
+    "humidity": 20,              # Very dry
+    "rainfall": 0,               # No rain
+    "pesticide_usage_ml": 15,    # High
+    "crop_type": "Tomato",
+    "region": "UpperEgypt"
+}
+# Expected: 0.10-0.20 (🔴 Poor)
+```
+
+### Scenario 3: Moderate Conditions
+```python
+{
+    "soil_pH": 6.1,              # Slightly acidic
+    "soil_moisture": 48,         # Near optimal
+    "temperature": 25,           # Good
+    "humidity": 55,              # Decent
+    "rainfall": 4,               # Adequate
+    "pesticide_usage_ml": 2,     # Low
+    "crop_type": "Olive",
+    "region": "Sinai"
+}
+# Expected: 0.65-0.70 (🟡 Moderate)
+```
+
+---
+
+### Best Practices
+- ✅ Use as a screening tool, not definitive diagnosis
+- ✅ Combine with periodic soil lab tests
+- ✅ Calibrate for local soil conditions
+- ✅ Monitor trends over time, not single readings
+- ✅ Consider crop-specific requirements
+
+---
 
