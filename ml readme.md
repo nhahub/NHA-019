@@ -116,7 +116,7 @@ irrigation_needed = 1 if soil_moisture < adjusted_threshold else 0
 
 Based on XGBoost analysis:
 
-![](images/)
+![importance](images/irrigation_importance.png)
 
 **Insights:**
 - Soil moisture is the dominant factor (as expected)
@@ -154,7 +154,7 @@ irrigation-model-deployment/
 ## Main Interface
 The user-friendly web interface allows you to input environmental parameters:
 
-![importance](images/irrigation_importance.png)
+![ui](images/ui.jpg)
 
 *Input form with all environmental parameters*
 
