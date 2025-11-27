@@ -121,7 +121,7 @@ Year-long (2024) minute-by-minute data modeling environmental interactions and a
 **Pesticides:** 70% after rain, weekly routine, 5-20ml
 
 ---
-## Step 1: Launch the Container Infrastructure
+## 🚀 Step 1: Launch the Container Infrastructure
 
 The entire technology stack runs as Docker containers orchestrated by Docker Compose. This approach ensures consistent environments across different machines and simplifies dependency management. Instead of manually installing Kafka, PostgreSQL, Hadoop, and Spark on your machine, Docker handles all installations and configurations automatically.
 
@@ -130,7 +130,7 @@ The entire technology stack runs as Docker containers orchestrated by Docker Com
 The `docker-compose.yaml` file (Docker Compose configuration) defines all the services needed for the pipeline. When you run the compose command, Docker will pull the required images from Docker Hub and start multiple containers. These containers include:
 ### Execution Steps
 
-Open your terminal or command prompt and navigate to the project directory where the `dc.yaml` file is located. Execute the following command:
+Open your terminal or command prompt and navigate to the project directory where the `docker-compose.yaml` file is located. Execute the following command:
 ```bash
 docker compose up -d
 ```
@@ -148,7 +148,7 @@ Once all containers are running, you can verify their functionality by accessing
 If any of these interfaces don't load, double-check that the corresponding containers are running and that no firewall rules are blocking the ports.
 
 ---
-## Step 2: Initialize the Hadoop Distributed File System
+## 💾 Step 2: Initialize the Hadoop Distributed File System
 
 HDFS requires specific directory structures to be created before it can store data. Unlike traditional filesystems that create directories automatically, HDFS follows a more explicit initialization process. This step sets up the necessary directory hierarchy for storing your sensor data.
 
@@ -167,7 +167,7 @@ Now create the necessary directory structure by running:
 hdfs dfs -mkdir -p /user
 ```
 ---
-## Step 3: Configure PostgreSQL Database Connection
+## 🔌 Step 3: Configure PostgreSQL Database Connection
 
 PostgreSQL serves as the real-time database for your streaming pipeline. Before Spark can write data to PostgreSQL, you need to create the database and configure your development environment to connect to it.
 
@@ -197,14 +197,14 @@ CREATE TABLE IF NOT EXISTS public.sensor_data
 );
 ```
 ---
-## Step 4: Start the Kafka Data Ingestion Pipeline
+## 📊 Step 4: Start the Kafka Data Ingestion Pipeline
 
 With the infrastructure ready and database prepared, it's time to start feeding data into the system. The Kafka producer reads sensor data and streams it into the Kafka topic where Spark will consume it.
 
 open kafka ui on http://localhost:8080 to make sure that topic **'smart_farming_data'** is added.
 ![kafkaui](images/kafkaui.jpg)
 ---
-## Step 5: Launch Spark Structured Streaming
+## ⚡ Step 5: Launch Spark Structured Streaming
 
 Now that data is flowing into Kafka, Spark Structured Streaming will consume these messages, process them, and write to both PostgreSQL and HDFS simultaneously.
 
@@ -238,7 +238,7 @@ After starting the streaming queries, Spark will display status information show
 
 The streaming queries will continue running indefinitely until you manually stop them. For testing, you can let them run for a few minutes to process several batches, then stop the notebook kernel to gracefully shut down the streams.
 
-## Step 6: Validate Data in PostgreSQL
+## ✅ Step 6: Validate Data in PostgreSQL
 
 After Spark has been processing for a few minutes, verify that data is successfully landing in your PostgreSQL database.
 
@@ -256,7 +256,7 @@ This query retrieves  sensor readings. If everything is working correctly, you s
 </p>
 ---
 
-## Step 7: Validate Data in HDFS
+## ✅ Step 7: Validate Data in HDFS
 
 The final verification step ensures data is also being written to HDFS for long-term storage and batch processing.
 
@@ -834,6 +834,50 @@ R² Score: 0.9987
 - ✅ Consider crop-specific requirements
 
 ---
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License - free to use and modify.
+
+---
+
+## 🙏 Acknowledgments
+
+### Special Thanks
+
+I would like to express my sincere gratitude to **Eng. Mohamed Hammed** for his invaluable guidance, support, and mentorship throughout this project. His expertise in data engineering and commitment to teaching made this work possible.
+
+### Technologies & Tools
+- **Apache Kafka** - Real-time data streaming
+- **Apache Spark** - Distributed data processing  
+- **PostgreSQL & MySQL** - Database systems
+- **Streamlit** - Interactive dashboards
+- **XGBoost** - Machine learning predictions
+- **Docker** - Containerization
+- **Power BI** - Data visualization
+
+### Learning Resources
+- Kafka documentation and tutorials
+- Spark Structured Streaming guides
+- Kaggle agricultural datasets
+- DEPI program
+
+### Inspiration
+This project aims to help farmers optimize water usage and increase crop yields using IoT sensors and artificial intelligence.
+
+---
+
+## ⭐ Support
+
+If you found this project helpful, please give it a star! ⭐
+
+---
+
+**Made with ❤️ for Sustainable Agriculture**
+
+*Last Updated: November 2025*
 
 
 
