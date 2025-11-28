@@ -1,0 +1,14 @@
+FROM apache/spark:3.5.0
+
+USER root
+
+RUN apt-get update && apt-get install -y wget && \
+    wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-8.0.33.tar.gz && \
+    tar -xzf mysql-connector-j-8.0.33.tar.gz && \
+    cp mysql-connector-j-8.0.33/mysql-connector-j-8.0.33.jar /opt/spark/jars/ && \
+    rm -rf mysql-connector-j-8.0.33*
+
+WORKDIR /app
+COPY ./scripts /app
+
+CMD ["spark-submit", "--master", "local[*]", "/app/spark_code.py"]
