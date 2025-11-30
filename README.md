@@ -3,7 +3,6 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![Apache Kafka](https://img.shields.io/badge/Apache%20Kafka-Streaming-black.svg)](https://kafka.apache.org/)
 [![PySpark](https://img.shields.io/badge/PySpark-Processing-orange.svg)](https://spark.apache.org/)
-[![Airflow](https://img.shields.io/badge/Airflow-Orchestration-blue.svg)](https://airflow.apache.org/)
 [![Docker](https://img.shields.io/badge/Docker-Containerization-2496ED.svg)](https://www.docker.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Real--time%20Storage-336791.svg)](https://www.postgresql.org/)
 [![Hadoop](https://img.shields.io/badge/Hadoop-Big%20Data-yellow.svg)](https://hadoop.apache.org/)
@@ -33,7 +32,7 @@ A comprehensive **Smart Agriculture IoT Data Pipeline** designed to optimize cro
 ## 🏗️ System Architecture
 
 <p align="center">
-  <img src="images/data_pipeline.png" alt="Irrigation Importance" />
+  <img src="images/data_pipeline1.png" alt="Irrigation Importance" />
 </p>
 
 ### 🔄 Data Flow
@@ -43,7 +42,6 @@ A comprehensive **Smart Agriculture IoT Data Pipeline** designed to optimize cro
 3. **Real-time Analytics**: PostgreSQL → Streamlit dashboards
 4. **Batch Processing**: HDFS → PySpark ETL → MySQL Data Warehouse
 5. **AI Pipeline**: MySQL DWH → Model Training → Flask API
-6. **Orchestration**: Apache Airflow manages all workflows
 
 ---
 
